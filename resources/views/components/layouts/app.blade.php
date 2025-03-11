@@ -8,10 +8,13 @@
 </head>
 <body class="bg-gray-100">
 
-    <x-header />
+   <x-header />
+    <x-sidebar />
+   
     
     <main class="p-6">
         {{ $slot }}
+    
     </main>
 
 </body>
