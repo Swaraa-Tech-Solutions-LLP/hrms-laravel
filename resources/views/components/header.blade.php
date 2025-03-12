@@ -3,7 +3,7 @@
         <div class="relative flex items-center justify-between">
             <div class="flex items-center">
                 <a href="{{ route('/') }}">
-                    <img class="h-auto w-12 sm:w-10 lg:w-14" src="images/logo.png" alt="Your Company"/>
+                    <img class="h-auto w-12 sm:w-10 lg:w-14" src="{{asset('images/logo.png')}}" alt="Your Company"/>
                 </a>
             </div>
             <div class="flex absolute inset-y-0 left-1/2 transform -translate-x-1/2 lg:hidden cursor-pointer">

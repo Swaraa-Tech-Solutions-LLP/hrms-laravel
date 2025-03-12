@@ -1,5 +1,4 @@
 <x-layouts.app>
-    <!-- Outer container for background & centering -->
     <div class="min-h-screen bg-gray-100 p-4 mt-10">
         <div class="max-w-[90%] mx-auto space-y-6">
             <h1 class="text-2xl font-bold text-green-600 border-b pb-2">
@@ -27,16 +26,11 @@
                     <div>Total Payment</div>
                 </div>
             </div>
-
-            <!-- Main Content Row -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <!-- Bar Chart -->
                 <div class="bg-white p-4 rounded shadow">
                     <h2 class="text-lg font-bold mb-4">Total Salaries Paid</h2>
                     <canvas id="salaryChart" class="w-full h-64"></canvas>
                 </div>
-
-                <!-- Latest Projects Table -->
                 <div class="bg-white p-4 rounded shadow">
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-lg font-bold">Latest Projects</h2>
@@ -70,13 +64,11 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <!-- Doughnut Chart -->
                 <div class="bg-white p-4 rounded shadow">
                     <h2 class="text-lg font-bold mb-4">Male vs Female Employees</h2>
                     <canvas id="employeeGenderChart" class="w-full h-64"></canvas>
                 </div>
 
-                <!-- Payment - Last 6 Months Bar Chart -->
                 <div class="bg-white p-4 rounded shadow">
                     <h2 class="text-lg font-bold mb-4">Payment - Last 6 Months</h2>
                     <canvas id="paymentChart" class="w-full h-64"></canvas>
