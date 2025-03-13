@@ -10,7 +10,7 @@ use App\Http\Controllers\Employee\EmployeeController;
 
 
 Route::middleware([RedirectIfAuthenticated::class])->group(function () {
-    Route::get('/', [HomeController::class,'index'])->name('/');
+    Route::get('/', [HomeController::class,'index'])->name('login');
 });
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 

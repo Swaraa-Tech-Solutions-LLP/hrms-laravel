@@ -2,7 +2,7 @@
     <div class="mx-auto px-0.5 sm:px-6 lg:px-8">
         <div class="relative flex items-center justify-between">
             <div class="flex items-center">
-                <a href="{{ route('/') }}">
+                <a href="{{ route('dashboard') }}">
                     <img class="h-auto w-12 sm:w-10 lg:w-14" src="{{asset('images/logo.png')}}" alt="Your Company"/>
                 </a>
             </div>
