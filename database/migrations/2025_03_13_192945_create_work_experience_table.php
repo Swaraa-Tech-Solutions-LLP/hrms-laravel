@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('work_experience', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            $table->string('company_name');
-            $table->string('job_title');
-            $table->date('from_date');
-            $table->date('to_date');
+            $table->string('company_name')->nullable();
+            $table->string('job_title')->nullable();
+            $table->date('from_date')->nullable();
+            $table->date('to_date')->nullable();
             $table->text('job_description')->nullable();
             $table->timestamps();
 

@@ -32,96 +32,95 @@
                     <div class="tab-content hidden bg-gray-50 p-1 rounded-lg shadow-sm" id="tabContent{{ $loop->index + 1 }}">
                         <h3 class="text-xl font-semibold mb-6 text-gray-900">{{ $title }}</h3>
                         @if ($id === 'basic-info')
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label><span class="text-red-500">*</span>
-                                    <label for="phone" class="text-gray-700 font-medium">Mobile Number:</label> <span class="text-red-500">*</span>
-                                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" name="first_name" required>
+                                    <label class="text-gray-700 font-medium">First Name</label><span class="text-red-500">*</span>
+                                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" name="first_name" value="{{ old('first_name', $user->first_name ?? '') }}" required>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Middle Name</label><span class="text-red-500">*</span>
-                                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" name="middle_name" required>
+                                    <label class="text-gray-700 font-medium">Middle Name</label><span class="text-red-500">*</span>
+                                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" name="middle_name" value="{{ old('middle_name', $user->middle_name ?? '') }}" required>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label><span class="text-red-500">*</span>
-                                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" name="last_name" required>
+                                    <label class="text-gray-700 font-medium">Last Name</label><span class="text-red-500">*</span>
+                                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" name="last_name" value="{{ old('last_name', $user->last_name ?? '') }}" required>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label><span class="text-red-500">*</span>
-                                    <input type="email" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" name="email" required>
+                                    <label class="text-gray-700 font-medium">Email Address</label><span class="text-red-500">*</span>
+                                    <input type="email" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" name="email" value="{{ old('email', $user->email ?? '') }}" required>
                                 </div>
                             </div>
                         @endif
                         @if ($id === 'work-info')
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-gray-700 font-medium">Department</label>
+                                    <label class="text-gray-700 font-medium">Department</label><span class="text-red-500">*</span>
                                     <select class="w-full p-2 border rounded-lg" name="department" required>
                                         <option value="">Select</option>
                                         @foreach ($departments as $department)
-                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                            <option value="{{ $department->id }}" {{ old('department', $user->department_id ?? '') == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-gray-700 font-medium">Client</label>
+                                    <label class="text-gray-700 font-medium">Client</label><span class="text-red-500">*</span>
                                     <select class="w-full p-2 border rounded-lg" name="client" required>
                                         <option value="">Select</option>
                                         @foreach ($clients as $client)
-                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                            <option value="{{ $client->id }}" {{ old('client', $user->client_id ?? '') == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-gray-700 font-medium">Location</label>
+                                    <label class="text-gray-700 font-medium">Location</label><span class="text-red-500">*</span>
                                     <select class="w-full p-2 border rounded-lg" name="location" required>
                                         <option value="">Select</option>
                                         @foreach ($locations as $location)
-                                            <option value="{{ $location->id }}">{{ $location->location_name }}</option>
+                                            <option value="{{ $location->id }}" {{ old('location', $user->location_id ?? '') == $location->id ? 'selected' : '' }}>{{ $location->location_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-gray-700 font-medium">Deignation</label>
+                                    <label class="text-gray-700 font-medium">Status</label><span class="text-red-500">*</span>
+                                    <select class="w-full p-2 border rounded-lg" name="status" required>
+                                        @foreach($status as $value => $label)
+                                            <option value="{{ $value }}" {{ old('status', $user->status ?? '') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-gray-700 font-medium">Designation</label><span class="text-red-500">*</span>
                                     <select class="w-full p-2 border rounded-lg" name="designation" required>
                                         <option value="">Select</option>
                                         @foreach ($designations as $designation)
-                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                            <option value="{{ $designation->id }}" {{ old('designation', $user->designation_id ?? '') == $designation->id ? 'selected' : '' }}>{{ $designation->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-gray-700 font-medium">Job Role</label>
+                                    <label class="text-gray-700 font-medium">Job Role</label><span class="text-red-500">*</span>
                                     <select class="w-full p-2 border rounded-lg" name="job_role" required>
                                         <option value="">Select</option>
                                         @foreach($jobRoles as $role)
-                                            <option value="{{ $role->id }}" {{ old('job_role') == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
+                                            <option value="{{ $role->id }}" {{ old('job_role', $user->job_role_id ?? '') == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div>
-                                    <label class="block text-gray-700 font-medium">Status</label>
-                                    <select class="w-full p-2 border rounded-lg" name="status" required>
-                                        <option value="">Select</option>
-                                        @foreach([1 => 'Active', 0 => 'Terminated', 2 => 'Deceased', 3 => 'Resigned'] as $value => $label)
-                                            <option value="{{ $value }}" {{ old('status') == $value ? 'selected' : '' }}>{{ $label }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-gray-700 font-medium">Joining Date</label>
-                                    <input type="date" name="join_date" required>
+                                    <label class="text-gray-700 font-medium">Joining Date</label><span class="text-red-500">*</span>
+                                    <input class="w-full p-2 border rounded-lg" type="date" name="join_date" value="{{ old('join_date', $user->join_date ?? '') }}" required>
                                 </div>
                             </div>
                         @endif
                         @if ($id === 'personal-details')
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="dob" class="text-gray-700 font-medium">Date of Birth:</label>
+                                    <label for="dob" class="text-gray-700 font-medium">Date of Birth:</label><span class="text-red-500">*</span>
                                     <input type="date" id="dob" name="dob" value="{{ old('dob') }}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" placeholder="Enter DOB" required>
                                 </div>
                                 <div>
-                                    <label for="gender" class="text-gray-700 font-medium">Gender:</label>
+                                    <label for="gender" class="text-gray-700 font-medium">Gender:</label><span class="text-red-500">*</span>
                                     <select name="gender" id="gender" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" required>
                                         <option value="">Select a gender</option>
                                         <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
@@ -130,18 +129,17 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="marital_status" class="text-gray-700 font-medium">Marital Status:</label>
+                                    <label for="marital_status" class="text-gray-700 font-medium">Marital Status:</label><span class="text-red-500">*</span>
                                     <select name="marital_status" id="marital_status" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" required>
                                         <option value="">Select a marital status</option>
-                                        <option value="Single" {{ old('marital_status') == 'Single' ? 'selected' : '' }}>Single</option>
-                                        <option value="Married" {{ old('marital_status') == 'Married' ? 'selected' : '' }}>Married</option>
-                                        <option value="Widowed" {{ old('marital_status') == 'Widowed' ? 'selected' : '' }}>Widowed</option>
-                                        <option value="Separated" {{ old('marital_status') == 'Separated' ? 'selected' : '' }}>Separated</option>
-                                        <option value="Divorced" {{ old('marital_status') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+                                        @foreach ($maritalStatuses as $status)
+                                            <option value="{{ $status }}" {{ old('marital_status') == $status ? 'selected' : '' }}>{{ $status }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
+
                                 <div>
-                                    <label for="blood_group" class="text-gray-700 font-medium">Blood Group:</label>
+                                    <label for="blood_group" class="text-gray-700 font-medium">Blood Group:</label><span class="text-red-500">*</span>
                                     <select name="blood_group" id="blood_group" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" required>
                                         <option value="">Select a blood group</option>
                                         @foreach(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'Unknown'] as $group)
@@ -160,39 +158,39 @@
                         @if ($id === 'identity-info')
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="inputEmail1" class="text-gray-700 font-medium">SSS No.:</label>
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="sss_no" placeholder="Enter SSS No" name="sss_no" required>
+                                    <label for="sss_no" class="text-gray-700 font-medium">SSS No</label><span class="text-red-500">*</span>
+                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="sss_no" placeholder="Enter SSS No" name="sss_no" value="{{ old('sss_no', $user->sss_no ?? '') }}" required>
                                 </div>
                                 <div>
-                                    <label for="inputEmail1" class="text-gray-700 font-medium">PhilHealth No.:</label>
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="philhealth_no" placeholder="Enter PhilHealth No" name="philhealth_no" required>
+                                    <label for="philhealth_no" class="text-gray-700 font-medium">PhilHealth No</label><span class="text-red-500">*</span>
+                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="philhealth_no" placeholder="Enter PhilHealth No" name="philhealth_no" value="{{ old('philhealth_no', $user->philhealth_no ?? '') }}" required>
                                 </div>
                                 <div>
-                                    <label for="inputEmail1" class="text-gray-700 font-medium">HDMF:</label>
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="hdmf" placeholder="Enter HDMF" name="hdmf" required>
+                                    <label for="hdmf" class="text-gray-700 font-medium">HDMF</label><span class="text-red-500">*</span>
+                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="hdmf" placeholder="Enter HDMF" name="hdmf" value="{{ old('hdmf', $user->hdmf ?? '') }}" required>
                                 </div>
                                 <div>
-                                    <label for="inputEmail1" class="text-gray-700 font-medium">Tax Identification No.:</label>
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="tax_identification_no" placeholder="Enter Tax Identification No" name="tax_identification_no" required>
+                                    <label for="tax_identification_no" class="text-gray-700 font-medium">Tax Identification No</label><span class="text-red-500">*</span>
+                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="tax_identification_no" placeholder="Enter Tax Identification No" name="tax_identification_no" value="{{ old('tax_identification_no', $user->tax_identification_no ?? '') }}" required>
                                 </div>
                                 <div>
-                                    <label for="bank_name" class="text-gray-700 font-medium">Bank Name:</label>
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="bank_name" placeholder="Enter Bank Name" name="bank_name" required>
+                                    <label for="bank_name" class="text-gray-700 font-medium">Bank Name</label><span class="text-red-500">*</span>
+                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="bank_name" placeholder="Enter Bank Name" name="bank_name" value="{{ old('bank_name', $user->bank_name ?? '') }}" required>
                                 </div>
                                 <div>
-                                    <label for="bank_account_number" class="text-gray-700 font-medium">Bank Account Number:</label>
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="bank_account_number" placeholder="Enter Bank Account Number" name="bank_account_number" required>
+                                    <label for="bank_account_number" class="text-gray-700 font-medium">Bank Account Number</label><span class="text-red-500">*</span>
+                                    <input type="number" class="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" id="bank_account_number" placeholder="Enter Bank Account Number" name="bank_account_number" value="{{ old('bank_account_number', $user->bank_account_number ?? '') }}" required>
                                 </div>
                             </div>
                         @endif
                         @if($id == 'contact-details')
                             <div class="mb-4">
-                                <label for="phone" class="text-gray-700 font-medium">Mobile Number:</label> <span class="text-red-500">*</span>
+                                <label for="phone" class="text-gray-700 font-medium">Mobile Number</label> <span class="text-red-500">*</span>
                                 <input type="text" class="w-full p-2 border rounded-lg" name="phone" id="phone" placeholder="Enter Phone number" value="{{ old('phone') }}" required>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="present_address" class="text-gray-700 font-medium">Present Address:</label> <span class="text-red-500">*</span>
+                                    <label for="present_address" class="text-gray-700 font-medium">Present Address</label> <span class="text-red-500">*</span>
                                     <input type="text" class="w-full p-2 border rounded-lg" name="present_address" id="present_address" placeholder="Address" value="{{ old('present_address') }}" required>
                                     <div class="grid grid-cols-2 gap-4 mt-2">
                                         <input type="text" class="w-full p-2 border rounded-lg" name="present_city" id="present_city" placeholder="City" value="{{ old('present_city') }}" required>
@@ -204,8 +202,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="permanent_address" class="text-gray-700 font-medium">Permanent Address:</label>
-                                    <span class="text-red-500">*</span>
+                                    <label for="permanent_address" class="text-gray-700 font-medium">Permanent Address</label><span class="text-red-500">*</span>
                                     <input type="checkbox" id="address_checkbox" class="ml-2"> <label class="text-gray-700">Same as Present Address</label>
                                     <input type="text" class="w-full p-2 border rounded-lg" name="permanent_address" id="permanent_address" placeholder="Address" value="{{ old('permanent_address') }}" required>
                                     <div class="grid grid-cols-2 gap-4 mt-2">
@@ -441,66 +438,26 @@
         function validateStep(step) {
             let valid = true;
             document.querySelectorAll(`#tabContent${step} input[required], #tabContent${step} select[required]`).forEach(input => {
+                console.log(input.value.trim());
                 if (!input.value.trim()) {
                     valid = false;
-                    input.classList.add('border-red-500');
+                    input.classList.add('!border-red-500');
                 } else {
-                    input.classList.remove('border-red-500');
+                    if (input.type === 'email' && !isValidEmail(input.value)) {
+                        valid = false;
+                        input.classList.add('!border-red-500'); // Red border if email is invalid
+                    } else {
+                        input.classList.remove('!border-red-500'); // Remove red border if valid
+                    }
                 }
             });
             return valid;
         }
-
-        $("#save").mouseover(function() {
-
-            yourArray_experience = [];
-            yourArray_education = [];
-            yourArray_emergency = [];
-            var company_names = document.getElementsByName('company_name[]');
-            var job_titles = document.getElementsByName('job_title[]');
-            var from_dates = document.getElementsByName('from_date[]');
-            var to_dates = document.getElementsByName('to_date[]');
-            var job_descriptions = document.getElementsByName('job_description[]');
-            var institution_names = document.getElementsByName('institution_name[]');
-            var degrees = document.getElementsByName('degree[]');
-            var specializations = document.getElementsByName('specialization[]');
-            var date_of_completions = document.getElementsByName('date_of_completion[]');
-            var em_names = document.getElementsByName('em_name[]');
-            var relations = document.getElementsByName('relation[]');
-            var em_phones = document.getElementsByName('em_phone[]');
-
-            for (var i = 0; i < company_names.length; i++) {
-                var company_name = company_names[i];
-                var job_title = job_titles[i];
-                var from_date = from_dates[i];
-                var to_date = to_dates[i];
-                var job_description = job_descriptions[i];
-                var work_experience = new WorkExperience(company_name.value, job_title.value, from_date.value,
-                    to_date.value, job_description.value);
-                yourArray_experience.push(work_experience);
-                $("#work_experience").val(JSON.stringify(yourArray_experience));
-            }
-
-            for (var i = 0; i < institution_names.length; i++) {
-                var institution_name = institution_names[i];
-                var degree = degrees[i];
-                var specialization = specializations[i];
-                var date_of_completion = date_of_completions[i];
-                var education_details = new EducationDetails(institution_name.value, degree.value, specialization
-                    .value, date_of_completion.value);
-                yourArray_education.push(education_details);
-                $("#education_details").val(JSON.stringify(yourArray_education));
-            }
-
-            for (var i = 0; i < em_names.length; i++) {
-                var em_name = em_names[i];
-                var relation = relations[i];
-                var em_phone = em_phones[i];
-                var emergency = new Emergency(em_name.value, relation.value, em_phone.value);
-                yourArray_emergency.push(emergency);
-                $("#emergency").val(JSON.stringify(yourArray_emergency));
-            }
-        });
+        function isValidEmail(email) {
+            // Regex for a simple email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailPattern.test(email);
+        }
 
         function WorkExperience(company_name, job_title, from_date, to_date, job_description) {
             this.CompanyName = company_name;

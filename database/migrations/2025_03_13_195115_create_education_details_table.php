@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('education_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            $table->string('institution_name');
-            $table->string('degree_diploma');
-            $table->string('specialization');
-            $table->date('date_of_completion');
+            $table->string('institution_name')->nullable();
+            $table->string('degree_diploma')->nullable();
+            $table->string('specialization')->nullable();
+            $table->date('date_of_completion')->nullable();
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('users')->onDelete('cascade');

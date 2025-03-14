@@ -9,27 +9,26 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('separation_information', function (Blueprint $table) {
+        Schema::create('deductions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('employee_id');
-            $table->date('contract_starting_date');
-            $table->date('contract_ending_date')->nullable();
-            $table->text('reason_for_leaving')->nullable();
+            $table->unsignedBigInteger('employee_id'); // Foreign key to the users table
+            $table->string('code');
+            $table->string('deduction_type')->nullable();
+            $table->string('description');
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('separation_information');
+        Schema::dropIfExists('deductions');
     }
 };

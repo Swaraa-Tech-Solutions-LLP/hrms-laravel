@@ -26,7 +26,8 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        return view('pages.auth.employee.index');
+        $employees = User::paginate(24)->skip(1);
+        return view('pages.auth.employee.index',compact('employees'));
     }
 
     public function create()
@@ -49,9 +50,12 @@ class EmployeeController extends Controller
             'Separation Information' => 'separation-info',
             'Salary Details' => 'salary-details'
         ];
+        $status = [1 => 'Active', 0 => 'Terminated', 2 => 'Deceased', 3 => 'Resigned'];
+        $maritalStatuses = ['Single', 'Married', 'Widowed', 'Separated', 'Divorced'];
+
         $steps = ['Basic Info', 'Work Info', 'Personal Details', 'Identity', 'Contact', 'Work Experience', 'Education', 'Emergency Contacts', 'Separation Info', 'Salary Details'];
 
-        return view('pages.auth.employee.create', compact('departments', 'clients', 'locations', 'designations', 'SalaryComponent', 'sections', 'steps', 'jobRoles'));
+        return view('pages.auth.employee.create', compact('departments', 'clients', 'locations', 'designations', 'SalaryComponent', 'sections', 'steps', 'jobRoles', 'status', 'maritalStatuses'));
     }
 
     public function store(Request $request)
@@ -74,7 +78,7 @@ class EmployeeController extends Controller
             'blood_group' => 'required|string',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
 
-            'mobile_number' => 'required|string|unique:contact_details,mobile_number', // Ensure the mobile number is unique
+            'phone' => 'required|string|unique:contact_details,mobile_number', // Ensure the mobile number is unique
             'present_address' => 'required|string',
             'present_city' => 'required|string',
             'present_country' => 'required|string',
@@ -88,27 +92,37 @@ class EmployeeController extends Controller
             'hdmf' => 'nullable|string',
             'tax_identification_no' => 'nullable|string',
             'bank_name' => 'required|string',
-            'bank_account_number' => 'required|string',
+            'bank_account_number' => 'required|digits_between:8,17',
 
-            'contract_starting_date' => 'required|date',
-            'contract_ending_date' => 'required|date',
+            'contract_start_date' => 'required|date',
+            'contract_end_date' => 'nullable|date',
             'reason_for_leaving' => 'nullable|string',
 
-            'ctc_salary' => 'required|numeric',
-            'basic_monthly' => 'required|numeric',
-            'house_rent_allowance_monthly' => 'required|numeric',
-            'conveyance_allowance_monthly' => 'required|numeric',
-            'fixed_allowance_monthly' => 'required|numeric',
-            'basic_annual' => 'required|numeric',
-            'house_rent_allowance_annual' => 'required|numeric',
-            'conveyance_allowance_annual' => 'required|numeric',
-            'fixed_allowance_annual' => 'required|numeric',
+            'em_name.*' => 'nullable|string|max:255',
+            'relation.*' => 'nullable|string|max:255',
+            'em_phone.*' => 'nullable|regex:/^[0-9\-\+\(\)\/\s]*$/',
+
+            'company_name.*' => 'nullable|string|max:255',
+            'job_title.*' => 'nullable|string|max:255',
+            'from_date.*' => 'nullable|date',
+            'to_date.*' => 'nullable|date|after_or_equal:from_date.*',
+            'job_description.*' => 'nullable|string|max:500',
+
+            'ctc_salary_selection' => 'required|numeric',
+            'monthly_basic' => 'required|numeric',
+            'monthly_house_rent' => 'required|numeric',
+            'monthly_conveyance' => 'required|numeric',
+            'monthly_fixed' => 'required|numeric',
+            'annual_basic' => 'required|numeric',
+            'annual_house_rent' => 'required|numeric',
+            'annual_conveyance' => 'required|numeric',
+            'annual_fixed' => 'required|numeric',
         ]);
 
         try {
             $employeeCode = $this->generateEmployeeCode();
             $user = User::create([
-                'name' => $request->firstname . ' ' . $request->middlename . ' ' . $request->lastname,
+                'name' => $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name,
                 'email' => $request->email,
                 'username' => $employeeCode,
                 'user_type' => 'Employee',
@@ -179,8 +193,8 @@ class EmployeeController extends Controller
                     'employee_id' => $user->id,
                     'company_name' => $companies[$i] ?? '',
                     'job_title' => $jobTitles[$i] ?? '',
-                    'from_date' => $fromDates[$i] ?? '',
-                    'to_date' => $toDates[$i] ?? '',
+                    'from_date' => $fromDates[$i] ?? null,
+                    'to_date' => $toDates[$i] ?? null,
                     'job_description' => $jobDescriptions[$i] ?? ''
                 ]);
             }
@@ -197,7 +211,7 @@ class EmployeeController extends Controller
                     'institution_name' => $institutions[$i] ?? '',
                     'degree_diploma' => $degrees[$i] ?? '',
                     'specialization' => $specializations[$i] ?? '',
-                    'date_of_completion' => $completionDates[$i] ?? ''
+                    'date_of_completion' => $completionDates[$i] ?? null
                 ]);
             }
 

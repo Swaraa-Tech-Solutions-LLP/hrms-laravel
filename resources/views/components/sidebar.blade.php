@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li class="w-full hover:bg-[#EEEEEE] cursor-pointer">
-                    <a class="flex items-center text-[13px] px-6 py-3" href="#">
+                    <a class="flex items-center text-[13px] px-6 py-3" href="{{route('deductions.index')}}">
                         <i class="mr-4 far fa-minus-circle" style="font-size:18px; color:#70657B;"></i>
                         <span class="text-[13px] font-normal" style="color:#70657B;">Deduction</span>
                     </a>

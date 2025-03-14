@@ -10,45 +10,27 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                <div class="bg-white p-4 rounded shadow flex flex-col items-center space-y-2">
-                    <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
-                        <!-- If you have an image:
-                            <img class="rounded-full object-cover w-24 h-24" src="..." alt="Employee photo">
-                        -->
-                        <span class="text-gray-400">No Image</span>
-                    </div>
-                    <p class="font-semibold text-gray-800">Ajay K V</p>
-                    <p class="text-sm text-gray-500">ajaykv@gmail.com</p>
-                    <p class="text-sm text-gray-500">7567845656</p>
-                    <div class="flex space-x-3 text-xl mt-2">
-                        <button class="text-green-500 hover:text-green-600">
-                            <i class="fas fa-check-circle"></i>
-                        </button>
-                        <button class="text-red-500 hover:text-red-600">
-                            <i class="fas fa-times-circle"></i>
-                        </button>
-                    </div>
-                </div>
+                @foreach($employees as $employee)
+                    <div class="bg-white p-4 rounded shadow flex flex-col items-center space-y-2">
+                        <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
+                            <img class="rounded-full object-cover w-24 h-24" src="{{ asset('storage/' . $employee->personalDetails->profile_image) }}" alt="Employee photo">
+                        </div>
+                        <p class="font-semibold text-gray-800">{{$employee->name}}</p>
+                        <p class="text-sm text-gray-500">{{$employee->email}}</p>
+                        <p class="text-sm text-gray-500">{{$employee->contactDetails->mobile_number}}</p>
+                        <div class="flex space-x-3 text-xl mt-2">
+                            <button class="text-green-500 hover:text-green-600">
+                                <i class="fas fa-pencil-alt" style="color: green;"></i>
 
-                <div class="bg-white p-4 rounded shadow flex flex-col items-center space-y-2">
-                    <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
-                        <span class="text-gray-400">No Image</span>
+                            </button>
+                            <button class="text-red-500 hover:text-red-600">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                        </div>
                     </div>
-                    <p class="font-semibold text-gray-800">Rahul R K</p>
-                    <p class="text-sm text-gray-500">rahulrk@gmail.com</p>
-                    <p class="text-sm text-gray-500">7567845655</p>
-                    <div class="flex space-x-3 text-xl mt-2">
-                        <button class="text-green-500 hover:text-green-600">
-                            <i class="fas fa-check-circle"></i>
-                        </button>
-                        <button class="text-red-500 hover:text-red-600">
-                            <i class="fas fa-times-circle"></i>
-                        </button>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
 
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </x-layouts.app>
